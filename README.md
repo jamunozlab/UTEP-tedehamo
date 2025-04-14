@@ -70,7 +70,7 @@ Once your simulations are complete, move on to the **`Post-processing.ipynb`** n
 
 ### What it does:
 - Uses the `extracting_energies_before_BM()` function to collect internal energy values at timesteps 1500 and 2000.
-- Performs a **Birch-Murnaghan fit** to extract:
+- Performs a **Birch-Murnaghan fit** using `Birch_Murnaghan_fit()` function to extract:
   - Equilibrium volume
   - Bulk modulus
   - Internal energy
