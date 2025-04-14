@@ -59,7 +59,7 @@ Path configurations, atom types, and general settings are defined in `utils/conf
 
 You must also provide an **interatomic potential** (e.g., from NIST).  
 This example uses **2NN-MEAM potentials**, available at:  
-📄 [DOI: 10.1016/j.commatsci.2021.110902](https://doi.org/10.1016/j.commatsci.2021.110902)
+ [DOI: 10.1016/j.commatsci.2021.110902](https://doi.org/10.1016/j.commatsci.2021.110902)
 And they must be inside the Potentials directory.
 
 ---
