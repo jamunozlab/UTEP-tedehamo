@@ -14,6 +14,8 @@ Make sure you have the following Python libraries installed:
 - `json`
 - `os`
 - `subprocess`
+- `matplotlib.pyplot`
+- `shutil`
 
 # Pip installations
 
