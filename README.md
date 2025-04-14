@@ -105,4 +105,4 @@ This function is embedded in nested loops over **defect percentages** and **temp
 
 
 # Note 
-Although you see a lmp_mpi executable in this example, you obviusly need to build lammps, it is straighforward in lammps you can follow the step here: https://docs.nersc.gov/applications/lammps/, as well that the neccesary commands that should be inside the batch.
+Although you see a lmp_mpi executable in this example, you obviusly need to build lammps, it is straighforward in Perlmutter you can follow the step here: https://docs.nersc.gov/applications/lammps/, as well that the neccesary commands that should be inside the batch.
