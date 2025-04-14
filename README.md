@@ -15,6 +15,11 @@ Make sure you have the following Python libraries installed:
 - `os`
 - `subprocess`
 
+# Pip installations
+
+- `ovito`
+- `--user WarrenCowleyParameters`
+
 ---
 
 # Workflow Overview
