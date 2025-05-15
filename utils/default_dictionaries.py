@@ -1,3 +1,4 @@
+from utils.config import atom_type1, atom_type2 
 gen_lammps_input = {
     'units': 'metal',
     'dimension': 3,
@@ -9,19 +10,19 @@ gen_lammps_input = {
     # "create_box": {"num_types": 1, "region": "whole"},
     # "create_atoms": {"num_type": 1, "region": "box"},
     'pair_style': 'meam',
-    'pair_coeff': '* * AlFe.library.meam Al Fe AlFe.meam Al Fe',
+    'pair_coeff': f'* * {atom_type1}{atom_type2}.library.meam {atom_type1} {atom_type2} {atom_type1}{atom_type2}.meam {atom_type1} {atom_type2}',
     'equilibration': {
         'reset_timestep': 0,
         'timestep': 0.005,
         'minimize': {'etol': 1e-6, 'ftol': 1e-8, 'maxiter': 10000, 'maxeval': 100000},
         'dump_min': {
-            'filename': 'ideal_AlFe_bcc_B2.txt',
+            'filename': f'ideal_{atom_type1}{atom_type2}_bcc_B2.txt',
             'every': 10000,
             'attributes': 'id x y z',
             'modify': {'pbc': 'yes', 'sort': 'id'},
         },
         'dump_4a': {
-            'filename': 'dump_AlFe_bcc_B2.*',
+            'filename': f'dump_{atom_type1}{atom_type2}_bcc_B2.*',
             'every': 500,
             'attributes': 'id type x y z fx fy fz', 
             'modify': {'pbc': 'yes', 'sort': 'id'},
@@ -37,18 +38,19 @@ gen_lammps_input = {
 }
 
 base_params_atoms_position = {
-    'initial_temperature': 500,
-    'initial_lattice_parameter': 2.75,#2.69
+    'initial_temperature': 200,
+    'initial_lattice_parameter': 2.81,#2.69
     'crystal_structure': "bcc",
-    'system_size': 15,
+    'system_size': 20,
     'index_atom_type_1': 1.0,
     'index_atom_type_2':2.0,
-    'n_temp_variations': 4,#1,#6,
-    'm_lattice_variations':25# 20 #20 add other 20 to be usable in birch-murnhaga
+    'n_temp_variations': 5,#1,#6,
+    'm_lattice_variations':40# 20 #20 add other 20 to be usable in birch-murnhaga
 }
 
-
-defect_percentages = [0,1,2,3]#[0, 1,2,3]
+atomic_mass_atom_type1 = 58.6934 
+atomic_mass_atom_type2 = 47.867
+defect_percentages = [0.0005,0.001,0.005]#[0, 1,2,3]
 vacancy_percentages = [0, 1, 2, 3, 4]
 reduction_percentages = [-0.03,-0.02,-0.01,0.00,0.01,0.02,0.03]#[-0.02,-0.01, 0, 0.01,0.02]
 
