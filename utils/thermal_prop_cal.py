@@ -2,9 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import warnings
-from utils.config import mechanical_path, thermal_path
-from utils.default_dictionaries import base_params_atoms_position
-
+from utils.config import mechanical_path, thermal_path,atom_type1,atom_type2
+from utils.default_dictionaries import base_params_atoms_position, atomic_mass_atom_type1,atomic_mass_atom_type2
 warnings.filterwarnings("ignore")
 
 def error_calculation(suffix, temp, defect,atom_type1,atom_type2):
@@ -83,7 +82,7 @@ def error_calculation(suffix, temp, defect,atom_type1,atom_type2):
         
         # Output from below functions as pandas series. Converted to numpy arrays
         # for easier array and concatination manipulation
-        debye_temp = np.array(calculate_debye_temperature(df_thermo, suffix, temp_num))
+        debye_temp = np.array(calculate_debye_temperature(df_thermo, suffix, temp_num, atom_type1, atom_type2))
         vibrational_entropy = np.array(calculate_vibrational_entropy(df_thermo, suffix, temp_num))
         configurational_entropy = np.array(calculate_configurational_entropy(df_thermo, suffix, temp_num))
         free_energy = np.array(calculate_free_energy(df_thermo, suffix, temp_num))
@@ -255,7 +254,7 @@ def calculate_free_energy(df, suffix, temp):
     constant = ((6 * np.pi**2)**(1/3)) * ((h)/( 2 * np.pi * k_B)) * ( ((4 * np.pi) / (3))**(1/6) )  # K times s
     
     
-    df[cdict['atomic_mass']] = df[f'{atom_type1}_composition'].multiply(55.845-47.867).add(47.867).mul(1.66e-27)
+    df[cdict['atomic_mass']] = df[f'{atom_type1}_composition'].multiply(atomic_mass_atom_type1-atomic_mass_atom_type2).add(atomic_mass_atom_type2).mul(1.66e-27)
         
     if(suffix == '_dis'):
         df[cdict['debye_temperature']] = df[cdict['lattice_parameter']].mul(1.0743e-10).mul(df[cdict['bulk_modulus']].mul(1e9)).div(df[cdict['atomic_mass']]).pow(1/2).mul(constant*0.758)
@@ -322,7 +321,7 @@ def calculate_vibrational_entropy(df, suffix, temp):
     constant = ((6 * np.pi**2)**(1/3)) * ((h)/( 2 * np.pi * k_B)) * ( ((4 * np.pi) / (3))**(1/6) )  # K times s
     
     
-    df[cdict['atomic_mass']] = df[f'{atom_type1}_composition'].multiply(55.845-50.9415).add(50.9415).mul(1.66e-27)
+    df[cdict['atomic_mass']] = df[f'{atom_type1}_composition'].multiply(atomic_mass_atom_type1-atomic_mass_atom_type2).add(atomic_mass_atom_type2).mul(1.66e-27)
     
     if(suffix == '_dis'):
         df[cdict['debye_temperature']] = df[cdict['lattice_parameter']].mul(1.0743e-10).mul(df[cdict['bulk_modulus']].mul(1e9)).div(df[cdict['atomic_mass']]).pow(1/2).mul(constant*0.758)
@@ -352,7 +351,7 @@ def calculate_vibrational_entropy(df, suffix, temp):
     
 #     return df[f'{atom_type1}_composition']
     
-def calculate_debye_temperature(df, suffix, temp):
+def calculate_debye_temperature(df, suffix, temp, atom_type1, atom_type2):
     
     temp_num = temp
     suffix = suffix #'_dis'
